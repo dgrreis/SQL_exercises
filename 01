@@ -1,0 +1,30 @@
+-- EXERCÍCIOS ########################################################################
+
+-- (Exemplo 1) Identifique qual é o status profissional mais frequente nos clientes 
+-- que compraram automóveis no site
+
+-- primeiro vamos declarar as tabelas
+
+from sales.funnel as fun 
+left join sales.customers as cus    --aqui estou juntando as duas tbs
+	on fun.customer_id = cus.customer_id    --customer_id é o linka as duas tbs
+
+-- agora vamos fazer um select normal 
+select
+	cus.professional_status,  --veja que aqui eu inclui os nomes das tb na frente
+	fun.paid_date
+	
+-- agora vou colocar a query na ordem certa
+
+select
+	cus.professional_status,  --veja que aqui eu inclui os nomes das tb na frente
+	count (fun.paid_date) as pagamentos --a função COUNT esta contando qnts pag tem em cada status profissional
+from sales.funnel as fun 
+left join sales.customers as cus    --aqui estou juntando as duas tbs
+	on fun.customer_id = cus.customer_id    --customer_id é o linka as duas tbs
+group by professional_status
+order by pagamentos desc
+	
+	-- agora vou incluir o count para contar qnts pag tem em cada status profissional
+count (fun.paid_date) as pagamentos
+	
